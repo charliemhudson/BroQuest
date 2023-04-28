@@ -1,10 +1,10 @@
 import { Table } from "sst/node/table";
-import handler from "@notes/core/handler";
-import dynamoDb from "@notes/core/dynamodb";
+import handler from "@broquest/core/handler";
+import dynamoDb from "@broquest/core/dynamodb";
 
 export const main = handler(async (event) => {
   const params = {
-    TableName: Table.Notes.tableName,
+    TableName: Table.Quest.tableName,
     // 'KeyConditionExpression' defines the condition for the query
     // - 'userId = :userId': only return items with matching 'userId'
     //   partition key

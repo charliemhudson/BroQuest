@@ -4,7 +4,7 @@
     "module": "esnext",
     "baseUrl": ".",
     "paths": {
-      "@notes/core/*": ["../core/src/*"]
+      "@broquest/core/*": ["../core/src/*"]
     }
   }
 }

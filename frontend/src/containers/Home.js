@@ -8,7 +8,7 @@ import { API } from "aws-amplify";
 import "./Home.css";
 
 export default function Home() {
-  const [notes, setNotes] = useState([]);
+  const [quests, setQuests] = useState([]);
   const { isAuthenticated } = useAppContext();
   const [isLoading, setIsLoading] = useState(true);
 
@@ -19,8 +19,8 @@ export default function Home() {
       }
 
       try {
-        const notes = await loadNotes();
-        setNotes(notes);
+        const quests = await loadQuests();
+        setQuests(quests);
       } catch (e) {
         onError(e);
       }
@@ -31,25 +31,23 @@ export default function Home() {
     onLoad();
   }, [isAuthenticated]);
 
-  function loadNotes() {
-    return API.get("notes", "/notes");
+  function loadQuests() {
+    return API.get("quests", "/quests");
   }
 
-  function renderNotesList(notes) {
+  function renderQuestsList(quests) {
     return (
       <>
-        <LinkContainer to="/notes/new">
+        <LinkContainer to="/quests/new">
           <ListGroup.Item action className="py-3 text-nowrap text-truncate">
             <BsPencilSquare size={17} />
-            <span className="ms-2 fw-bold">Create a new note</span>
+            <span className="ms-2 fw-bold">Start a new quest</span>
           </ListGroup.Item>
         </LinkContainer>
-        {notes.map(({ noteId, content, createdAt }) => (
-          <LinkContainer key={noteId} to={`/notes/${noteId}`}>
+        {quests.map(({ questId, title, createdAt }) => (
+          <LinkContainer key={questId} to={`/quests/${questId}`}>
             <ListGroup.Item action className="text-nowrap text-truncate">
-              <span className="fw-bold">
-                {content.trim().split("\n")[0]}
-              </span>
+              <span className="fw-bold">{title}</span>
               <br />
               <span className="text-muted">
                 Created: {new Date(createdAt).toLocaleString()}
@@ -64,24 +62,24 @@ export default function Home() {
   function renderLander() {
     return (
       <div className="lander">
-        <h1>Scratch</h1>
-        <p className="text-muted">A simple note taking app</p>
+        <h1>BroQuest 💪</h1>
+        <p className="text-muted">Interactive bro-questing adventures</p>
       </div>
     );
   }
 
-  function renderNotes() {
+  function renderQuests() {
     return (
-      <div className="notes">
-        <h2 className="pb-3 mt-4 mb-3 border-bottom">Your Notes</h2>
-        <ListGroup>{!isLoading && renderNotesList(notes)}</ListGroup>
+      <div className="quests">
+        <h2 className="pb-3 mt-4 mb-3 border-bottom">Your Quests</h2>
+        <ListGroup>{!isLoading && renderQuestsList(quests)}</ListGroup>
       </div>
     );
   }
 
   return (
     <div className="Home">
-      {isAuthenticated ? renderNotes() : renderLander()}
+      {isAuthenticated ? renderQuests() : renderLander()}
     </div>
   );
 }

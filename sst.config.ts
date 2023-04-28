@@ -7,7 +7,7 @@ import { FrontendStack } from "./stacks/FrontendStack";
 export default {
   config(_input) {
     return {
-      name: "notes",
+      name: "broquest",
       region: "us-east-1",
     };
   },

@@ -1,6 +1,6 @@
-import { Bucket, Table } from "sst/constructs";
+import { Bucket, Table, StackContext } from "sst/constructs";
 
-export function StorageStack({ stack, app }) {
+export function StorageStack({ stack, app } : StackContext) {
   // Create an S3 bucket
   const bucket = new Bucket(stack, "Uploads", {
     cors: [
@@ -14,12 +14,18 @@ export function StorageStack({ stack, app }) {
   });
 
   // Create the DynamoDB table
-  const table = new Table(stack, "Notes", {
+  const table = new Table(stack, "Quest", {
     fields: {
       userId: "string",
-      noteId: "string",
+      questId: "string",
+      title: "string",
+      genre: "string",
+      additionalDetails: "string",
+      playerCount: "number",
+
+
     },
-    primaryIndex: { partitionKey: "userId", sortKey: "noteId" },
+    primaryIndex: { partitionKey: "userId", sortKey: "questId" },
   });
 
   return {
