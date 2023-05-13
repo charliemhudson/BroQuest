@@ -18,14 +18,14 @@ export function StorageStack({ stack, app } : StackContext) {
     fields: {
       userId: "string",
       questId: "string",
+      telegramChatId: "number",
       title: "string",
       genre: "string",
       additionalDetails: "string",
       playerCount: "number",
 
-
     },
-    primaryIndex: { partitionKey: "userId", sortKey: "questId" },
+    primaryIndex: { partitionKey: "telegramChatId"},
   });
 
   return {
